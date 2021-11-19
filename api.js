@@ -61,14 +61,14 @@ async function time() {
 async function newOrder(symbol, quantity, price, side = 'BUY', type = 'MARKET'){
     const data = {symbol, side, type, quantity};
 
-    if (price) data.price = price;
+    if (price) data.price = parseInt(price);
     if (type === 'LIMIT') data.timeInForce = 'GTC';
 
     return privateCall('/v3/order', data, 'POST');
 }
 
-async function depth(symbol = 'BTCBRL', limit = 5) {
-    return privateCall('/v3/depth', { symbol, limit });
+async function depth(symbol = 'BNBBUSD', limit = 5) {
+    return publicCall('/v3/depth', { symbol, limit });
 }
 
 // Consulta todos os pares negociados
