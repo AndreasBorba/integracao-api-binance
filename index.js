@@ -13,10 +13,16 @@ setInterval(async () => {
     //console.log(await api.exchangeInfo());
     //console.log(await api.accountInfo());
 
-    const account = await api.accountInfo();
+    //const account = await api.accountInfo();
 
-    const wallet  = account.balances.filter(b => b.asset === 'BNB' || b.asset === 'BUSD');
+    //const wallet  = account.balances.filter(b => b.asset === 'BNB' || b.asset === 'BUSD');
 
-    console.log(wallet);
+    //console.log(wallet);
 
+    //console.log(await api.accountInfo());
+
+    console.log(await api.depth());
+
+    //const orderBook = await api.depth();
+    
 }, process.env.CRAWLER_INTERVAL);

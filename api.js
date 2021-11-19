@@ -58,8 +58,17 @@ async function time() {
     return publicCall('/v3/time');
 }
 
+async function newOrder(symbol, quantity, price, side = 'BUY', type = 'MARKET'){
+    const data = {symbol, side, type, quantity};
+
+    if (price) data.price = price;
+    if (type === 'LIMIT') data.timeInForce = 'GTC';
+
+    return privateCall('/v3/order', data, 'POST');
+}
+
 async function depth(symbol = 'BTCBRL', limit = 5) {
-    return publicCall('/v3/depth', { symbol, limit });
+    return privateCall('/v3/depth', { symbol, limit });
 }
 
 // Consulta todos os pares negociados
@@ -67,6 +76,6 @@ async function exchangeInfo() {
     return publicCall('/v3/exchangeInfo');
 }
 
-// Exportando apenas a função time, a função restante será de uso interno.
-// Esta função (time) retorna o horário do em que o servidor esta operando em formato timestamp
-module.exports = { time, depth, exchangeInfo, accountInfo };
+// A função publicCall e privateCall será de uso interno.
+// Esta função (time) retorna o horário em que o servidor esta operando, em formato timestamp.
+module.exports = { time, depth, exchangeInfo, accountInfo, newOrder };
